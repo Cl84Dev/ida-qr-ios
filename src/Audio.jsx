@@ -9,8 +9,8 @@ const Audio = () => {
   }, []);
   return (
     <>
-      {isIOS ? <AudioIOS /> : <AudioAndroid />}
-      {/* <AudioAndroid /> */}
+      {/* {isIOS ? <AudioIOS /> : <AudioAndroid />} */}
+      <AudioIOS />
     </>
   );
 };
