@@ -10,6 +10,7 @@ const AudioIOS = () => {
   const [data, setData] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [scannerVisible, setScannerVisible] = useState(false);
+  const [firstClick, setFirstClick] = useState(true);
   const {
     transcription,
     setTranscription,
@@ -121,8 +122,16 @@ const AudioIOS = () => {
     setPlaying(false);
   };
 
+  const handleFirstClick = () => {
+    textToSpeech("Leia um q r code para iniciar a navegação por voz.");
+    setFirstClick(false);
+  };
+
   return (
-    <div className={styles.container} onClick={handleSpeechRecognition}>
+    <div
+      className={styles.container}
+      onClick={firstClick ? handleFirstClick : handleSpeechRecognition}
+    >
       <Modal
         closeButton
         aria-labelledby="modal-title"
@@ -139,7 +148,7 @@ const AudioIOS = () => {
           onError={(e) => console.log(e)}
         />
       </Modal>
-      <QrCodeGrid onClick={(e) => handler(e)} />
+      <QrCodeGrid onClick={firstClick ? handleFirstClick : (e) => handler(e)} />
       {playing && (
         <img
           onClick={(e) => stopAudio(e)}
